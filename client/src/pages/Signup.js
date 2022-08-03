@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
 import { ADD_USER } from "../utils/mutations";
@@ -25,6 +25,8 @@ function Signup() {
   const handleClick = () => setShow(!show);
   const toast = useToast();
 
+  const navigate = useNavigate();
+
   const [formState, setFormState] = useState({ email: "", password: "" });
   const [addUser] = useMutation(ADD_USER);
 
@@ -48,6 +50,7 @@ function Signup() {
       duration: 9000,
       isClosable: true,
     });
+    navigate("/profile");
   };
 
   const handleChange = (event) => {
