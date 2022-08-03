@@ -61,9 +61,10 @@ function Signup() {
       duration: 9000,
       isClosable: true,
     });
-    // navigate("/profile");
-    // window.location.reload(false);
-    window.location.assign("/profile");
+    window.location.reload(false);
+    navigate("/profile");
+
+    // window.location.assign("/profile");
   };
 
   //sets the formstate whenever something is typed into the form
