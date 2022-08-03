@@ -35,7 +35,7 @@ const Home = () => {
 
           <Center>
             <Button size="lg" colorScheme="teal">
-              <Link to="/beans">Grow A Bean</Link>
+              <Link to="/beanform">Grow A Bean</Link>
             </Button>
           </Center>
         </Box>
