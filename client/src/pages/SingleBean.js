@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_SINGLE_BEAN } from "../utils/queries";
 import Auth from "../utils/auth";
@@ -12,6 +12,7 @@ import {
   Button,
   ButtonGroup,
   Divider,
+  Spinner,
 } from "@chakra-ui/react";
 
 const Beans = () => {
@@ -35,17 +36,35 @@ const Beans = () => {
           </Button>
         </ButtonGroup>
       );
+    } else if (bean.donation) {
+      return (
+        <div>
+          <Text fontSize="xl">
+            To fund this bean you must be
+            <Text color="teal">
+              <Link to="/login">logged in </Link>{" "}
+            </Text>
+          </Text>{" "}
+        </div>
+      );
     }
   }
 
   return (
     <div>
       {loading ? (
-        <h1>loading...</h1>
+        <Spinner
+          m="3"
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="teal.500"
+          size="xl"
+        />
       ) : (
         <div>
           <Wrap py={30} mx="10" mt="10" mb="5" spacing="30px">
-            <Box width={["100%", "50%"]} bg="white" key={bean._id}>
+            <Box width={["100%", "75%", "50%"]} bg="white" key={bean._id}>
               {bean.image ? (
                 <img src={bean.image} alt={bean.title} />
               ) : (
@@ -58,7 +77,8 @@ const Beans = () => {
             <Spacer />
             <Box
               width={[
-                "100%", // 0-30em
+                "100%",
+                "75%", // 0-30em
                 "40%", // 30em-48em
               ]}
               bg="white"
@@ -75,7 +95,7 @@ const Beans = () => {
                 {bean.donation ? (
                   <Text mb="3" fontSize="2xl">
                     {" "}
-                    Bean amount $ {bean.donation}{" "}
+                    Bean amount ${bean.donation}{" "}
                   </Text>
                 ) : null}{" "}
                 {Authentication()}
