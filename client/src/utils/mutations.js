@@ -6,6 +6,9 @@ export const LOGIN = gql`
       token
       user {
         _id
+        firstName
+        lastName
+        email
       }
     }
   }
@@ -30,8 +33,20 @@ export const LOGIN = gql`
 // `;
 
 export const ADD_BEAN = gql`
-  mutation addBean($title: String!, $description: String!) {
-    addBean(title: $title, description: $description) {
+  mutation addBean(
+    $title: String!
+    $description: String!
+    $image: String
+    $beanAuthor: String
+    $donation: Int
+  ) {
+    addBean(
+      title: $title
+      description: $description
+      image: $image
+      beanAuthor: $beanAuthor
+      donation: $donation
+    ) {
       _id
       title
       description
@@ -63,6 +78,20 @@ export const ADD_USER = gql`
       user {
         _id
       }
+    }
+  }
+`;
+
+export const REMOVE_BEAN = gql`
+  mutation removeBean($beanId: ID!) {
+    removeBean(beanId: $beanId) {
+      _id
+      title
+      description
+      image
+      beanAuthor
+      donation
+      createdAt
     }
   }
 `;
