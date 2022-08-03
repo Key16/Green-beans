@@ -1,12 +1,8 @@
 import React, { useState } from "react";
-import { Navigate, Link, useNavigate } from "react-router-dom";
-// import BeanList from "../components/BeanList";
-// import CategoryMenu from "../components/CategoryMenu";
-// import BeanForm from "../components/BeanForm";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 
 import { ADD_BEAN } from "../utils/mutations";
-// import { QUERY_USER } from "../components/utils/queries";
 
 import Auth from "../utils/auth";
 
@@ -14,7 +10,6 @@ import {
   Box,
   FormLabel,
   Input,
-  Select,
   Text,
   Stack,
   Button,
@@ -26,34 +21,40 @@ import {
 } from "@chakra-ui/react";
 
 const BeanForm = () => {
+  //taost is banner that pops up when succeeded
   const toast = useToast();
+  //sets initial state of form so it can be cleared
   const initialState = {
     title: "",
     description: "",
     image: "",
-    donation: "0",
+    donation: "",
   };
 
+  //uses the initial state set above
   const [formState, setFormState] = useState(initialState);
 
+  //to create a new bean mutation
   const [addBean] = useMutation(ADD_BEAN);
 
+  //to navigate to a new page after success
   const navigate = useNavigate();
 
+  //when the form is submited
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    console.log("Auth.getProfile().data, :>> ", Auth.getProfile().data);
-
+    //combines the author first name last name from the Auth token
     const author =
       Auth.getProfile().data.firstName + " " + Auth.getProfile().data.lastName;
 
+    //turns the donation number from string to number
     const donationInt = parseInt(formState.donation);
+
+    //blank value for image so a placeholder image can be uploaded if no image is uploaded
     let savedImage;
 
-    console.log("formState :>> ", formState);
-
-    console.log("author :>> ", author);
+    //sets the default image if no image is uploaded
     try {
       if (formState.image) {
         savedImage = formState.image;
@@ -62,6 +63,7 @@ const BeanForm = () => {
           "https://h7.alamy.com/comp/W9P1GN/seamless-pattern-tile-cartoon-with-peas-and-beans-illustration-W9P1GN.jpg";
       }
 
+      //adds the bean using the form variables
       const { data } = await addBean({
         variables: {
           title: formState.title,
@@ -71,7 +73,8 @@ const BeanForm = () => {
           donation: donationInt,
         },
       });
-      console.log("data :>> ", data);
+
+      //banner that pops up with bean is crated
       toast({
         title: "Bean Created",
         description: "Thank you for creating your bean!",
@@ -79,25 +82,24 @@ const BeanForm = () => {
         duration: 9000,
         isClosable: true,
       });
-
       navigate("/beans");
     } catch (e) {
       console.log(e);
     }
   };
 
+  //stores the form name and value when text is typed into the form
   const handleChange = (event) => {
     const { name, value } = event.target;
-    console.log("name :>> ", name);
-    console.log("value :>> ", value);
+
     setFormState({
       ...formState,
       [name]: value,
     });
   };
 
+  //if the clear button is pressed, clear the form
   const handleClear = () => {
-    // const { name, value } = event.target;
     console.log("formState :>> ", formState);
     setFormState(initialState);
   };
@@ -151,10 +153,12 @@ const BeanForm = () => {
                     name="donation"
                     value={formState.donation}
                     onChange={handleChange}
-                    min={0}
                   ></Input>
                 </InputGroup>
               </Box>
+
+              {/* This section is for category but is not being used at the moment */}
+
               {/* <Box width={["100%", "72"]}>
             <FormLabel htmlFor="owner">Select Category</FormLabel>
             <Select

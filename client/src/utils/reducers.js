@@ -1,6 +1,7 @@
 import { useReducer } from "react";
 import { UPDATE_BEANS } from "./actions";
 
+//meant to be in the store privder t update beans
 export const reducer = (state, action) => {
   switch (action.type) {
     case UPDATE_BEANS:

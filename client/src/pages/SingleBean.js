@@ -4,6 +4,7 @@ import { useQuery } from "@apollo/client";
 import { QUERY_SINGLE_BEAN } from "../utils/queries";
 import Auth from "../utils/auth";
 
+//components from chakra
 import {
   Box,
   Wrap,
@@ -15,18 +16,20 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 
+//loads a single bean
 const Beans = () => {
+  //grabs the params from the URL
   const { beanId } = useParams();
 
+  //queries the bean basd on the params
   const { loading, data } = useQuery(QUERY_SINGLE_BEAN, {
     // pass URL parameter
     variables: { beanId: beanId },
   });
 
   const bean = data?.bean || {};
-  console.log("data :>> ", data);
-  console.log("bean :>> ", bean);
 
+  //shows different messages if theres a bean donation in the bean, and if theyre logged in or not
   function Authentication() {
     if (Auth.loggedIn() && bean.donation) {
       return (

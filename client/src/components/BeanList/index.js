@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { Box, Wrap, Text, Image, Spinner, Progress } from "@chakra-ui/react";
 
 function BeanList() {
+  //query for finding all beans
   const { loading, data } = useQuery(QUERY_BEANS);
   let bean;
 

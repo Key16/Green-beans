@@ -12,7 +12,9 @@ import {
   Text,
 } from "@chakra-ui/react";
 
+//nav bar
 function Nav() {
+  //if authenticated, show profile
   function Authentication() {
     if (Auth.loggedIn()) {
       return (
@@ -25,6 +27,7 @@ function Nav() {
     }
   }
 
+  //shows different breadcrumbs if logged in or not
   function AuthStatus() {
     const toast = useToast();
     if (Auth.loggedIn()) {

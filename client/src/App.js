@@ -20,7 +20,6 @@ import Nav from "./components/Nav";
 import Profile from "./pages/Profile";
 import Footer from "./components/Footer";
 import { StoreProvider } from "./utils/GlobalState";
-// import Success from "./pages/Success";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -40,7 +39,9 @@ const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
-//
+
+//chakra provider wraps around the router. all the paths listed here
+
 function App() {
   return (
     <ApolloProvider client={client}>

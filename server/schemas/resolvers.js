@@ -35,7 +35,7 @@ const resolvers = {
 
       throw new AuthenticationError("Not logged in");
     },
-    //find the users donations
+    //find the users donations but not currently used
     userDonations: async (parent, args, context) => {
       if (context.user) {
         const user = await User.findById(context.user._id).populate("donation");
@@ -45,7 +45,7 @@ const resolvers = {
 
       throw new AuthenticationError("Not logged in");
     },
-    //find the donations for the bean
+    //find the donations for the bean, not currently used
 
     beanDonations: async (parent, { _id }) => {
       return await Bean.findById(_id).populate("donaters");
@@ -59,7 +59,7 @@ const resolvers = {
 
       return { token, user };
     },
-
+    //logs the user in checks for pw and email
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
@@ -77,6 +77,7 @@ const resolvers = {
 
       return { token, user };
     },
+    //create a new bean
     addBean: async (
       parent,
       { title, description, image, donation, beanAuthor },
@@ -90,7 +91,7 @@ const resolvers = {
           donation,
           beanAuthor,
         });
-
+        //updates the user schema with the bean id
         await User.findOneAndUpdate(
           { _id: context.user._id },
           { $addToSet: { bean: bean._id } }
@@ -100,6 +101,8 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
+
+    //removes the bean
     removeBean: async (parent, { beanId }, context) => {
       if (context.user) {
         return Bean.findOneAndDelete({ _id: beanId });
@@ -107,6 +110,7 @@ const resolvers = {
 
       throw new AuthenticationError("Not logged in");
     },
+    //adds a donation to the schema, currently not being used
     addDonation: async (parent, { donatedAmount, beanId }, context) => {
       if (context.user) {
         const donation = await Donation.create({
@@ -123,7 +127,6 @@ const resolvers = {
         console.log("this has passed user update and before bean update");
         console.log("the bean Id is", beanId);
 
-        //somehow have to pass the bean iD through too
         await Bean.findOneAndUpdate(
           { _id: beanId },
           { $addToSet: { donation: donation._id } }

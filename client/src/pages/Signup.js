@@ -4,9 +4,6 @@ import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
 import { ADD_USER } from "../utils/mutations";
 
-// import ProductList from "../components/ProductList";
-// import CategoryMenu from "../components/CategoryMenu";
-// import Cart from "../components/Cart";
 import {
   Box,
   FormLabel,
@@ -20,19 +17,30 @@ import {
   ButtonGroup,
 } from "@chakra-ui/react";
 
+//the component that shows up when signing up
 function Signup() {
+  //this is for the password show
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
+
+  //toast is the pop up banner when succeeded with singing up
   const toast = useToast();
 
+  //to navigate the user to their profile after sign up
   const navigate = useNavigate();
 
+  //sets the state of the form
   const [formState, setFormState] = useState({ email: "", password: "" });
+
+  //add user mutation
   const [addUser] = useMutation(ADD_USER);
 
+  //when the form is submited
   const handleFormSubmit = async (event) => {
+    //prevents page refresh when submit is clicked
     event.preventDefault();
-    console.log("formState :>> ", formState);
+
+    //adds user based on form variables
     const mutationResponse = await addUser({
       variables: {
         email: formState.email,
@@ -41,8 +49,11 @@ function Signup() {
         lastName: formState.lastName,
       },
     });
+
+    //retrun auth token to be stored in local storage
     const token = mutationResponse.data.addUser.token;
     Auth.login(token);
+    //banner pops up when signed up
     toast({
       title: "Signed Up",
       description: "Welcome to Green Beans!",
@@ -51,8 +62,10 @@ function Signup() {
       isClosable: true,
     });
     navigate("/profile");
+    window.location.reload(false);
   };
 
+  //sets the formstate whenever something is typed into the form
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormState({

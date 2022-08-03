@@ -4,7 +4,10 @@ import { Box, Spacer, Text, Wrap, Button } from "@chakra-ui/react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 function Footer() {
+  //location wont show back button if its home page
   const location = useLocation();
+
+  //to navigate to other back pages
   const navigate = useNavigate();
   return (
     <div className="footer">
@@ -58,28 +61,6 @@ function Footer() {
 
         <Box w="180px" />
       </Wrap>
-
-      {/* <Wrap spacing="100px">
-        <WrapItem width={["100%", "50%", "25%"]}>
-          <Center w="180px" h="80px">
-            <img
-              src="https://cdn-icons-png.flaticon.com/512/3077/3077450.png"
-              alt="beansprout"
-            />
-          </Center>
-        </WrapItem>
-
-        <WrapItem width={["100%", "50%", "15%"]}>
-          <Text fontSize="2xl">Support</Text>
-          <Text fontSize="lg">FAQs</Text>
-          <Text fontSize="lg">Support Centre</Text>
-        </WrapItem>
-        <WrapItem width={["100%", "50%", "15%"]}>
-          <Center w="180px" h="80px" bg="blackAlpha.500">
-            Box 5
-          </Center>
-        </WrapItem>
-      </Wrap> */}
     </div>
   );
 }

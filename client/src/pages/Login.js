@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Navigate, Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 
 import { LOGIN } from "../utils/mutations";
@@ -19,25 +19,36 @@ import {
 } from "@chakra-ui/react";
 
 function Login(props) {
+  //sets initial state for form
   const [formState, setFormState] = useState({ email: "", password: "" });
+
+  //login mutation
   const [login, { error }] = useMutation(LOGIN);
 
+  //set state for password show field
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
+
+  //toast shows a little banner when scueeded
   const toast = useToast();
 
+  //to navigate to profile after login
   const navigate = useNavigate();
 
+  //after form submit
   const handleFormSubmit = async (event) => {
+    //prevents page refresh
     event.preventDefault();
+    //passes form variables to login mutation
     try {
       const mutationResponse = await login({
         variables: { email: formState.email, password: formState.password },
       });
+
+      //returns token to store in local storage
       const token = mutationResponse.data.login.token;
       Auth.login(token);
-      console.log("logged in");
-      console.log("token :>> ", token);
+      //pops up a banner if logged in
       toast({
         title: "Logged In",
         description: "Welcome back to Green Beans!",
@@ -52,6 +63,7 @@ function Login(props) {
     }
   };
 
+  //setes the formstate everytime something is typed into the form
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormState({

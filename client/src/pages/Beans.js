@@ -1,7 +1,7 @@
 import React from "react";
 import BeanList from "../components/BeanList";
-// import CategoryMenu from "../components/CategoryMenu";
 
+//oriignally planned to have category menu so is here as a placeholder
 const Beans = () => {
   return (
     <div>

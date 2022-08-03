@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Navigate, Link, useNavigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 
 import { useQuery } from "@apollo/client";
 import { useMutation } from "@apollo/client";
@@ -22,38 +22,36 @@ import {
 } from "@chakra-ui/react";
 
 const Profile = () => {
-  const [state, dispatch] = useStoreContext();
+  // commented out the use store context as couldn't work but leaving it here as it was close for future dev
+  // const [state, dispatch] = useStoreContext();
 
+  // const { beans } = state;
+
+  // console.log("data :>> ", data);
+
+  // useEffect(() => {
+  //   if (data) {
+  //     dispatch({
+  //       type: UPDATE_BEANS,
+  //       beans: data.user.bean,
+  //     });
+  //   }
+  //   console.log("this is data from useeffect :>> ", data);
+  // }, [data, dispatch]);
+
+  // const store = useStoreContext();
+
+  //query the user and grab their beans
   const { loading, data } = useQuery(QUERY_USER);
 
-  const { beans } = state;
-
-  console.log("data :>> ", data);
-
-  useEffect(() => {
-    if (data) {
-      dispatch({
-        type: UPDATE_BEANS,
-        beans: data.user.bean,
-      });
-    }
-    console.log("this is data from useeffect :>> ", data);
-  }, [data, dispatch]);
-
-  const [removeBean, { error }] = useMutation(REMOVE_BEAN);
-
-  // const navigate = useNavigate();
-
-  const store = useStoreContext();
-  console.log("store :>> ", store);
+  const [removeBean] = useMutation(REMOVE_BEAN);
 
   let user;
 
+  //passes beanId and deletes the bean
   const deleteBean = async (event, beanId) => {
-    console.log("event :>> ", event);
-    console.log("beanId :>> ", beanId);
     event.preventDefault();
-    // console.log('object :>> ', object);
+
     try {
       await removeBean({
         variables: { beanId: beanId },
@@ -64,6 +62,7 @@ const Profile = () => {
     }
   };
 
+  //loads teh spinner from chakra UI
   if (loading) {
     return (
       <Spinner

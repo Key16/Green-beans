@@ -26,6 +26,8 @@ module.exports = {
 
     return req;
   },
+
+  // stores the token with first name last name to be used when assigning bean author
   signToken: function ({ firstName, lastName, email, _id }) {
     const payload = { firstName, lastName, email, _id };
 

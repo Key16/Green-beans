@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 
+//looks for all the beans, category is avaialble but not implemented in front end UI yet
 export const QUERY_BEANS = gql`
   query getBeans($category: ID) {
     beans(category: $category) {
@@ -21,6 +22,7 @@ export const QUERY_BEANS = gql`
   }
 `;
 
+//looks for a single bean
 export const QUERY_SINGLE_BEAN = gql`
   query getSingleBean($beanId: ID!) {
     bean(beanId: $beanId) {
@@ -42,37 +44,7 @@ export const QUERY_SINGLE_BEAN = gql`
   }
 `;
 
-// export const QUERY_CHECKOUT = gql`
-//   query getCheckout($products: [ID]!) {
-//     checkout(products: $products) {
-//       session
-//     }
-//   }
-// `;
-
-// export const QUERY_ALL_PRODUCTS = gql`
-//   {
-//     products {
-//       _id
-//       name
-//       description
-//       price
-//       quantity
-//       category {
-//         name
-//       }
-//     }
-//   }
-// `;
-
-// export const QUERY_CATEGORIES = gql`
-//   {
-//     categories {
-//       _id
-//       name
-//     }
-//   }
-// `;
+//queries the user schema
 
 export const QUERY_USER = gql`
   {

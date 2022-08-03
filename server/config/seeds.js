@@ -31,7 +31,7 @@ db.once("open", async () => {
       title: "Spread local flower seeds",
       description:
         "Did you know its actually really easy to help your local bees? Just spread some flower seeds in the local parks or patches of grass. The more bees the better pollination of our plants and thriving nature.  Just make sure the seeds are native and not an invasive species at the store.",
-      //   image: "cookie-tin.jpg",
+
       category: categories[1]._id,
       beanAuthor: "Jane Doe",
       donation: 40,

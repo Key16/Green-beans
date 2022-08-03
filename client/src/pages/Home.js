@@ -2,6 +2,8 @@ import React from "react";
 import { Box, Spacer, Text, Wrap, Button, Center } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
+//this is the home page with just some short info
+
 const Home = () => {
   return (
     <div>

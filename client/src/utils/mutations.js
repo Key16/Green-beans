@@ -1,5 +1,7 @@
 import { gql } from "@apollo/client";
 
+//logs user in, gets token back
+
 export const LOGIN = gql`
   mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
@@ -14,23 +16,7 @@ export const LOGIN = gql`
   }
 `;
 
-// export const ADD_ORDER = gql`
-//   mutation addOrder($products: [ID]!) {
-//     addOrder(products: $products) {
-//       purchaseDate
-//       products {
-//         _id
-//         name
-//         description
-//         price
-//         quantity
-//         category {
-//           name
-//         }
-//       }
-//     }
-//   }
-// `;
+//creates a new bean
 
 export const ADD_BEAN = gql`
   mutation addBean(
@@ -61,6 +47,8 @@ export const ADD_BEAN = gql`
   }
 `;
 
+//creates a new user returns auth token
+
 export const ADD_USER = gql`
   mutation addUser(
     $firstName: String!
@@ -81,6 +69,8 @@ export const ADD_USER = gql`
     }
   }
 `;
+
+//removes the bean
 
 export const REMOVE_BEAN = gql`
   mutation removeBean($beanId: ID!) {
