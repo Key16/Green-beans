@@ -21,6 +21,27 @@ export const QUERY_BEANS = gql`
   }
 `;
 
+export const QUERY_SINGLE_BEAN = gql`
+  query getSingleBean($beanId: ID!) {
+    bean(beanId: $beanId) {
+      _id
+      title
+      description
+      image
+      beanAuthor
+      donation
+      createdAt
+      category {
+        _id
+      }
+      donaters {
+        _id
+        donatedAmount
+      }
+    }
+  }
+`;
+
 // export const QUERY_CHECKOUT = gql`
 //   query getCheckout($products: [ID]!) {
 //     checkout(products: $products) {
@@ -53,23 +74,20 @@ export const QUERY_BEANS = gql`
 //   }
 // `;
 
-// export const QUERY_USER = gql`
-//   {
-//     user {
-//       firstName
-//       lastName
-//       orders {
-//         _id
-//         purchaseDate
-//         products {
-//           _id
-//           name
-//           description
-//           price
-//           quantity
-//           image
-//         }
-//       }
-//     }
-//   }
-// `;
+export const QUERY_USER = gql`
+  {
+    user {
+      firstName
+      lastName
+      bean {
+        _id
+        title
+        description
+        image
+        beanAuthor
+        donation
+        createdAt
+      }
+    }
+  }
+`;
