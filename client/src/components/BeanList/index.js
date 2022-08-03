@@ -33,10 +33,10 @@ function BeanList() {
       ) : (
         <>
           {bean.length ? (
-            <Wrap pb="10" mx={6} spacing="30px">
+            <Wrap pb="10" mx={6} spacing="35px">
               {bean.map((beans) => (
                 <Box
-                  width={["100%", "30%"]}
+                  width={["100%", "45%", "30%"]}
                   bg="white"
                   border="1px"
                   borderColor="gray.200"
