@@ -56,7 +56,7 @@ const Profile = () => {
       await removeBean({
         variables: { beanId: beanId },
       });
-      window.location.reload(false);
+      window.location.reload(true);
     } catch (error) {
       console.log(error);
     }
