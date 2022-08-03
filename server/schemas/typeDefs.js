@@ -13,7 +13,7 @@ const typeDefs = gql`
     image: String
     beanAuthor: String
     createdAt: String
-    donation: Float
+    donation: Int
     category: Category
     donaters: [Donation]
   }
@@ -46,11 +46,12 @@ const typeDefs = gql`
   type Query {
     categories: [Category]
     beans(category: ID): [Bean]
-    bean(_id: ID!): Bean
+
+    bean(beanId: ID!): Bean
     user: User
     userDonations: User
     beanDonations: Bean
-    # checkout(products: [ID]!): Checkout
+    checkout(products: [ID]!): Checkout
   }
 
   type Mutation {
@@ -66,6 +67,7 @@ const typeDefs = gql`
       description: String!
       image: String
       donation: Int
+      beanAuthor: String
     ): Bean
     removeBean(beanId: ID!): Bean
     addDonation(donatedAmount: Int!, beanId: String): Donation
