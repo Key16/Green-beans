@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Navigate, Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 
 import { LOGIN } from "../utils/mutations";
@@ -26,6 +26,8 @@ function Login(props) {
   const handleClick = () => setShow(!show);
   const toast = useToast();
 
+  const navigate = useNavigate();
+
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -43,6 +45,8 @@ function Login(props) {
         duration: 9000,
         isClosable: true,
       });
+      navigate("/profile");
+      window.location.reload(false);
     } catch (e) {
       console.log(e);
     }
