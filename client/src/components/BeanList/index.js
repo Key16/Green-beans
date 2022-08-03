@@ -5,7 +5,7 @@ import { QUERY_BEANS } from "../../utils/queries";
 
 import { Link } from "react-router-dom";
 
-import { Box, Wrap, Text, Image, Spinner } from "@chakra-ui/react";
+import { Box, Wrap, Text, Image, Spinner, Progress } from "@chakra-ui/react";
 
 function BeanList() {
   const { loading, data } = useQuery(QUERY_BEANS);
@@ -60,11 +60,15 @@ function BeanList() {
                     <Text px={2} fontSize="15">
                       on {beans.createdAt}
                     </Text>
+                    <br></br>
                     {beans.donation ? (
-                      <Text px={2} mt="5" pr="2">
-                        {" "}
-                        Bean Fund $ {beans.donation}{" "}
-                      </Text>
+                      <div>
+                        <Progress value={50} colorScheme="teal" />
+                        <Text px={2} pr="2">
+                          {" "}
+                          Bean Fund ${beans.donation}{" "}
+                        </Text>
+                      </div>
                     ) : null}
                   </Link>
                 </Box>
