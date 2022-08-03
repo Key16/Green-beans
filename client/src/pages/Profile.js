@@ -120,8 +120,14 @@ const Profile = () => {
                   />
                   <Text fontSize="2xl">{bean.title}</Text>
                   <Text fontSize="lg">{bean.description}</Text>
-                  <Text fontSize="lg">{bean.donation}</Text>
-                  <Text fontSize="lg">{bean.createdAt} </Text>
+                  <br></br>
+                  {bean.donation ? (
+                    <Text fontSize="lg"> Bean Fund $ {bean.donation} </Text>
+                  ) : null}
+                  <Text as="i" fontSize="sm">
+                    Posted on {bean.createdAt}{" "}
+                  </Text>
+                  <br></br>
                   <Button onClick={(e) => deleteBean(e, bean._id)}>
                     Delete
                   </Button>
