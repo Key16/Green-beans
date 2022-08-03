@@ -7,7 +7,6 @@ import {
   ButtonGroup,
   Breadcrumb,
   BreadcrumbItem,
-  BreadcrumbLink,
   Stack,
   useToast,
   Text,
@@ -105,7 +104,7 @@ function Nav() {
           >
             <Text fontSize="2xl">
               {" "}
-              <Link to="/beans">Green Beans</Link>
+              <Link to="/beans">Green Beans </Link>
             </Text>
           </Box>
           <ButtonGroup gap="3">
