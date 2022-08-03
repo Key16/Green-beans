@@ -1,59 +1,35 @@
-import React, { useEffect } from "react";
-// import { useStoreContext } from "../../utils/GlobalState";
+import React from "react";
+
 import { useQuery } from "@apollo/client";
 import { QUERY_BEANS } from "../../utils/queries";
-// import { idbPromise } from '../../utils/helpers';
-// import spinner from '../../assets/spinner.gif';
+
 import { Link } from "react-router-dom";
 
-import { Box, Wrap, Text, Image } from "@chakra-ui/react";
+import { Box, Wrap, Text, Image, Spinner } from "@chakra-ui/react";
 
 function BeanList() {
-  //   const [state, dispatch] = useStoreContext();
-
-  //   const { currentCategory } = state;
-
   const { loading, data } = useQuery(QUERY_BEANS);
   let bean;
-  let donation;
 
   if (data) {
     bean = data.beans;
   }
 
-  console.log("this is the loading", loading);
-  console.log("data :>> ", data);
-
-  console.log("bean :>> ", bean);
-
-  //   useEffect(() => {
-  //     if (data) {
-  //       console.log("this is data for query beans", data);
-  //     }
-  //   }, [data, loading, dispatch]);
-
-  //   function filterBeans() {
-  //     if (!currentCategory) {
-  //       return state.products;
-  //     }
-
-  //     return state.products.filter(
-  //       (product) => product.category._id === currentCategory
-  //     );
-  //   }
-
-  //       {loading ? <img src={spinner} alt="loading" /> : null}
-
-  //   );
-
   return (
     <div>
-      <Text mt="5" pl="5" fontSize="2xl">
+      <Text mt="5" mb="5" pl="5" fontSize="2xl">
         {" "}
         All Beans
       </Text>
       {loading ? (
-        <h1>loading...</h1>
+        <Spinner
+          m="3"
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="teal.500"
+          size="xl"
+        />
       ) : (
         <>
           {bean.length ? (
@@ -64,27 +40,32 @@ function BeanList() {
                   bg="white"
                   border="1px"
                   borderColor="gray.200"
-                  px={2}
                   key={beans._id}
                 >
                   <Link to={`/beans/${beans._id}`}>
                     <Image
                       boxSize="xs"
+                      width={"100%"}
                       objectFit="cover"
                       src={beans.image}
                       alt={beans.title}
                     />
-                    <Text fontSize="3xl">{beans.title}</Text>
-                    <Text fontSize="xl">
+
+                    <Text px={2} fontSize="3xl">
+                      {beans.title}
+                    </Text>
+                    <Text px={2} fontSize="xl">
                       Posted by {beans.beanAuthor}
-                      <Text fontSize="15">on {beans.createdAt}</Text>
                     </Text>
-                    <Text mt="5" pr="2">
-                      {beans.description}
-                      {beans.donation ? (
-                        <h1> Bean Fund $ {beans.donation} </h1>
-                      ) : null}
+                    <Text px={2} fontSize="15">
+                      on {beans.createdAt}
                     </Text>
+                    {beans.donation ? (
+                      <Text px={2} mt="5" pr="2">
+                        {" "}
+                        Bean Fund $ {beans.donation}{" "}
+                      </Text>
+                    ) : null}
                   </Link>
                 </Box>
               ))}{" "}
