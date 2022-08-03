@@ -57,7 +57,7 @@ function Login(props) {
         isClosable: true,
       });
       navigate("/profile");
-      window.location.reload(false);
+      // window.location.reload(false);
     } catch (e) {
       console.log(e);
     }
